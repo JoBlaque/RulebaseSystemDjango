@@ -1,351 +1,392 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Demo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #444;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: url('https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg') no-repeat center center fixed;
-            background-size: cover; /* Ensure the background image covers the entire page */
-        }
-
-        h2 {
-            color: #343a40;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        form, table {
-            background-color: #ffffff;
-            padding: 10px; /* Reduced padding */
-            margin-bottom: 10px; /* Reduced margin */
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-        }
-
-        .bg-container {
-            background-image: url('https://i.ytimg.com/vi/fx6nqgld-Zs/maxresdefault.jpg');
-            background-size: cover; /* Ensure the entire image fits */
-            background-repeat: no-repeat;
-            background-position: center;
-            padding: 20px; /* Adjusted padding */
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            position: relative;
-            height: 600px; /* Increased height */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* Align items to the top */
-            align-items: center;
-        }
-
-        .bg-container form {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px; /* Reduced padding */
-            border-radius: 8px;
-            width: 80%; /* Reduced width */
-        }
-
-        #inputForm {
-            margin-top: 200px; /* Move Initial State down */
-        }
-
-        #goalForm {
-            margin-top: 50px; /* Maintain the same space */
-        }
-
-        input[type="text"], select, input[type="checkbox"] {
-            width: 100%;
-            padding: 5px; /* Reduced padding */
-            margin: 6px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 5px 10px; /* Reduced padding */
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px; /* Reduced font size */
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        table button {
-            margin-top: 0;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px; /* Reduced padding */
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #6c757d;
-            color: white;
-            font-weight: bold;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        #list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #list li {
-            background-color: #ffffff;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        select[multiple] {
-            height: 120px;
-        }
-
-        @media screen and (max-width: 600px) {
-            table, th, td {
-                font-size: 14px;
-            }
-
-            button {
-                padding: 10px 15px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<h2>Constraint Table</h2>
+<div class="container">
+    <h4 class="text-center fw-bold text-black mb-3">Input Values</h4>
+    <div class="col-md-12">
+        <div class="card bg-white bg-opacity-75 border-0">
+            <form id="state_form" class="card-body">
+                <h6 class="card-title text-center fw-bold">Initial & Final State</h6>
+                <hr class="my-1 mb-2"/>
+                <div class="row gx-2">
+                    <div class="col-md-4">
+                        <label for="constraintName" class="form-label">Agent Name</label>
+                        <input type="text" class="form-control" id="agent_name" name="agent_name"
+                               placeholder="Agent Name">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="constraintName" class="form-label">Initial Position</label>
+                        <select class="form-select" id="position_value-initial" name="position_value-initial">
+                            <option selected>Select Position</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="constraintName" class="form-label">Final Position</label>
+                        <select class="form-select" id="position_value-final" name="position_value-final">
+                            <option selected>Select Position</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info mt-3">Add State</button>
+                <table class="table table-striped mt-3" id="agent_name-list"></table>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3 gx-3">
+        <div class="col-md-6">
+            <div class="card bg-white bg-opacity-75 border-0">
+                <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">General Facts</h6>
+                    <hr class="my-1 mb-2"/>
+                    <div class="input-group">
+                        <input type="text" name="generalFact" id="general_fact" class="form-control m-0"
+                               placeholder="Write some fact..."
+                               aria-label="Agent Name" aria-describedby="button-addon2">
+                        <button class="btn btn-info" type="button" id="general_fact-btn" onclick="addData(this)">Add
+                        </button>
+                    </div>
 
-<div class="bg-container">
-    <form id="inputForm">
-        <label for="inputField">Initial State:</label>
-        <input type="text" id="inputField">
-        <button type="button" class="btn btn-primary" onclick="addToList()">Add to Initial States</button>
-    </form>
-    <form id="goalForm">
-        <label for="inputField1">Goal State:</label>
-        <input type="text" id="inputField1">
-        <button type="button" class="btn btn-primary" onclick="addToList()">Add to Goals</button>
-    </form>
+                    <ul class="list-group mt-2" id="general_fact-list"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-white bg-opacity-75 border-0">
+                <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">Postions</h6>
+                    <hr class="my-1 mb-2"/>
+                    <select class="form-select" id="position_type" aria-label="Position Type">
+                        <option selected>Position Type</option>
+                        <option value="discrete">Discrete</option>
+                    </select>
+
+                    <div class="input-group mt-2">
+                        <input type="text" class="form-control m-0" id="position_value" placeholder="Postion Name"
+                               aria-label="Position Name" aria-describedby="button-addon2">
+                        <button class="btn btn-info" type="button" id="position_value-btn" onclick="addData(this)">Add
+                        </button>
+                    </div>
+                    <ul class="list-group mt-2" id="position_value-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mt-3">
+        <div class="card bg-white bg-opacity-75 border-0">
+            <div class="card-body">
+                <h6 class="card-title text-center fw-bold">Constraints</h6>
+                <hr class="my-1 mb-2"/>
+                <form id="constraint_form">
+                    <div class="row gx-2">
+                        <div class="col-md-6">
+                            <label for="constraintName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="constraint_name" name="constraint_name"
+                                   placeholder="Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="constraintAction" class="form-label">Action</label>
+                            <select class="form-select" id="constraint_action" aria-label="Default select example">
+                                <option selected>Select an action</option>
+                                <option value="undo">Undo</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mt-2">
+                                <input type="text" class="form-control m-0" placeholder="Facts"
+                                       id="constraint_fact" aria-label="Position Name">
+                                <button class="btn btn-info" type="button" id="constraint_fact-btn"
+                                        onclick="addConstraintListUI(this)">Add
+                                </button>
+                            </div>
+                            <ul class="list-group mt-2" id="constraint_fact-list"></ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mt-2">
+                                <input type="text" class="form-control m-0" placeholder="Constraint"
+                                       aria-label="Position Name" id="constraint_string">
+                                <button class="btn btn-info" type="button" id="constraint_string-btn"
+                                        onclick="addConstraintListUI(this)">Add
+                                </button>
+                            </div>
+                            <ul class="list-group mt-2" id="constraint_string-list"></ul>
+                        </div>
+                    </div>
+                    <button class="btn btn-info mt-3">Add New Constraint</button>
+                </form>
+
+                <table class="table table-striped mt-3" id="constaint_table-list">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">No. of Facts</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Mark</td>
+                        <td><select class="form-select" aria-label="Default select example">
+                            <option selected>Initial Position</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                        </select></td>
+                        <td>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Final Position</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger">&#x2715;</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-info" onclick="callPlannerApi()">Start Solving</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h4 class="text-center fw-bold text-black mt-3">Output Values</h4>
+        <div id="plan-output">
+
+        </div>
+    </div>
 </div>
-<ul id="list"></ul>
-
-<table id="textInputTable">
-    <tr>
-        <th>Name</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td><input type="text" name="name"></td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('textInputTable')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-
-<table id="dropdownTable">
-    <tr>
-        <th>Initial State</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>
-            <select name="state">
-                <option value="man_isat_left">Man is at Left</option>
-                <option value="wolf_isat_left">Wolf is at Left</option>
-                <option value="chicken_isat_left">Chicken is at Left</option>
-                <option value="grain_isat_left">Grain is at Left</option>
-            </select>
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('dropdownTable')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-
-<table id="dropdownTable1">
-    <tr>
-        <th>Goal State</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>
-            <select name="state">
-                <option value="man_isat_right">Man is at Right</option>
-                <option value="wolf_isat_right">Wolf is at Right</option>
-                <option value="chicken_isat_right">Chicken is at right</option>
-                <option value="grain_isat_right">Grain is at right</option>
-            </select>
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('dropdownTable1')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-
-<table id="dropdownTable2">
-    <tr>
-        <th>Facts</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>
-            <select name="state">
-                <option value="man_moves_all">Man moves all</option>
-                <option value="2_can_move">2 can move</option>
-                <option value="wolf_can_eat_chickeb">Wolf can eat Chicken</option>
-                <option value="chicken_can_eat_grain">Chicken can eat grain</option>
-            </select>
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('dropdownTable2')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-
-<table id="dropdownTable3">
-    <tr>
-        <th>Position</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>
-            <select name="state">
-                <option value="Discrete">Discrete</option>
-                <option value="Range">Range</option>
-                <option value="left">Left</option>
-                <option value="right">Right</option>
-            </select>
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('dropdownTable3')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-
-<table id="multiSelectTable">
-    <tr>
-        <th>Constraints</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>
-            <select name="constraint" multiple>
-                <option value="actor1_isat_pos1">Actor 1 at Position 1</option>
-                <option value="notman_isat_pos1">Not man at Position 1</option>
-                <option value="actor1_isat_pos1">Actor 2 at Position 1</option>
-                <option value="actor1_can_eat_actor2">Actor 1 can eat Actor 2</option>
-            </select>
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('multiSelectTable')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-
-<table id="checkboxTable">
-    <tr>
-        <th>Agree to Terms</th>
-        <th>Actions</th>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" name="agree"> I agree to the terms and conditions
-        </td>
-        <td>
-            <button class="btn btn-primary" onclick="addRow('checkboxTable')">Add Row</button>
-            <button class="btn btn-danger" onclick="deleteRow(this)">Delete Row</button>
-        </td>
-    </tr>
-</table>
-<button class="btn btn-success" onclick="submitTable('checkboxTable')">Submit</button>
-
 <script>
-    function addToList() {
-        var inputField = document.getElementById("inputField");
-        var inputValue = inputField.value;
+    global_state = {}
 
-        if (inputValue !== "") {
-            var list = document.getElementById("list");
-            var listItem = document.createElement("li");
-            listItem.textContent = inputValue;
+    function callPlannerApi() {
+        console.log(global_state)
+        fetch("/playground/planner_api/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                "position_value": ["left", "right"],
+                "general_fact": ["man moves all", "2 can_move"],
+                "initial_state": [
+                    "man isat left",
+                    "wolf isat left",
+                    "chicken isat left",
+                    "grain isat left",
+                ],
+                "final_state": ["man isat right", "wolf isat right", "chicken isat right", "grain isat right"],
+                "state": [["Man", "left", "right"], ["Wolf", "left", "right"], ["Chicken", "left", "right"], ["Grain", "left", "right"]],
+                "constraint_fact": [],
+                "constraint_string": [],
+                "constraints": [{
+                    "name": "Eat",
+                    "action": "undo",
+                    "facts": ["wolf can_eat chicken", "chicken can_eat grain"],
+                    "constraint": ["var_actor_1 isat var_pos_1", "NOT man isat var_pos_1", "var_actor_2 isat var_pos_1", "var_actor_1 can_eat var_actor_2"]
+                }]
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
 
-            list.appendChild(listItem);
-            inputField.value = "";
+                const outputDiv = document.getElementById("plan-output")
+                outputDiv.innerHTML = data.plan.map((item, idx) => {
+                    return `</span><div class="row gx-2">
+                        <div class="col-md-1">
+                            <div class="card p-2 fw-bold">${idx+1}</div>
+                        </div>
+                        ${item.map((i) => {
+                        let step = i.split(" isat ")
+                        return `</span><div class="col-md-2">
+                                <div class="card p-2">${step[0]} -> ${step[1]}</div>
+                            </div><span class="d-none">`
+                    })}
+                    </div><span class="d-none">`
+                })
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function updateListUI(inputId) {
+        document.getElementById(`${inputId}-list`).innerHTML = global_state[inputId].map(item => `</span><li class="list-group-item d-flex justify-content-between align-items-center">
+                <p class="m-0">${item}</p>
+                <button class="btn btn-danger btn-sm py-1" onclick="deleteRow(this, ${inputId})">&#x2715;</button>
+            </li><span class="d-none">`)
+    }
+
+    function addConstraintListUI(btn) {
+        const input = document.getElementById(btn.id.split("-")[0])
+        if (!global_state[input.id]) global_state[input.id] = []
+        if (global_state[input.id].includes(input.value)) return
+        global_state[input.id].push(input.value)
+        input.value = ""
+        updateListUI(input.id)
+    }
+
+    function updatePositionOptionsUI() {
+        if (!global_state['position_value'] || global_state["position_value"].length === 0) return
+        const first_value = `<option selected>Select Position</option>`
+
+        let optionMap = []
+        for (let i = 0; i <= global_state["position_value"].length; i++) {
+            if (i === 0) optionMap.push(first_value)
+            else {
+                optionMap.push(`<option value="${global_state["position_value"][i - 1].toLowerCase()}">${global_state["position_value"][i - 1]}</option>`)
+            }
         }
+
+        document.getElementById("position_value-initial").innerHTML = optionMap
+        document.getElementById("position_value-final").innerHTML = optionMap
     }
 
-    function addRow(tableId) {
-        var table = document.getElementById(tableId);
-        var newRow = table.insertRow(-1);
-        var newCell1 = newRow.insertCell(0);
-        var newCell2 = newRow.insertCell(1);
-        newCell1.innerHTML = table.rows[1].cells[0].innerHTML;
-        newCell2.innerHTML = table.rows[1].cells[1].innerHTML;
-    }
+    document.getElementById("state_form").addEventListener("submit", (event) => {
+        event.preventDefault()
 
-    function deleteRow(btn) {
-        var row = btn.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-    }
+        const data = new FormData(event.target);
+        const state_list = [...data.entries()]
+        if (!global_state['initial_state']) global_state['initial_state'] = []
+        if (!global_state['final_state']) global_state['final_state'] = []
+        if (!global_state['state']) global_state['state'] = []
+        if (!state_list[0][1] || !state_list[1][1] || !state_list[2][1]) return
 
-    function submitTable(tableId) {
-        var table = document.getElementById(tableId);
-        var data = [];
-        for (var i = 1; i < table.rows.length; i++) {
-            var input = table.rows[i].cells[0].getElementsByTagName('input')[0] ||
-                        table.rows[i].cells[0].getElementsByTagName('select')[0];
-            data.push(input.value);
+        const initial_state = `${state_list[0][1].toLowerCase()} isat ${state_list[1][1]}`
+        const final_state = `${state_list[0][1].toLowerCase()} isat ${state_list[2][1]}`
+
+        if (global_state["initial_state"].includes(initial_state)) return
+
+        global_state['initial_state'].push(initial_state)
+        global_state['final_state'].push(final_state)
+        global_state["state"].push([state_list[0][1], state_list[1][1], state_list[2][1]])
+
+        updateStateTable()
+    })
+
+    document.getElementById("constraint_form").addEventListener("submit", (event) => {
+        event.preventDefault()
+
+        const constraintName = document.getElementById("constraint_name").value
+        const constraintAction = document.getElementById("constraint_action").value
+
+        if (!global_state["constraints"]) global_state["constraints"] = []
+
+        const new_constraint = {
+            name: constraintName,
+            action: constraintAction,
+            facts: global_state["constraint_fact"],
+            constraints: global_state["constraint_string"]
         }
-        console.log("Submitted data:", data);
-        // Here you would typically send this data to a server
+
+        global_state["constraints"].push(new_constraint)
+
+        document.getElementById("constraint_name").value = ""
+        document.getElementById("constraint_action").value = ""
+        global_state["constraint_fact"] = []
+        global_state["constraint_string"] = []
+        console.log(global_state)
+
+        updateConstraintTable()
+    })
+
+    function updateStateTable() {
+        const table = document.getElementById("agent_name-list")
+
+        if (!global_state["state"] || global_state["state"].length === 0) return
+
+        const header = `<thead>
+                <tr>
+                    <th scope="col">Agent</th>
+                    <th scope="col">Initial State</th>
+                    <th scope="col">Goal State</th>
+                </tr>
+            </thead><span class="d-none">`
+
+
+        let rowsMap = []
+        for (let i = 0; i < global_state["state"].length; i++) {
+            if (i === 0) rowsMap.push(header)
+            rowsMap.push(`</span><tbody>
+                    <tr>
+                        <td>${global_state["state"][i][0]}</td>
+                        <td>${global_state["state"][i][1]}</td>
+                        <td>${global_state["state"][i][2]}</td>
+                    </tr>
+                </tbody><span class="d-none">`)
+        }
+
+        table.innerHTML = rowsMap
     }
+
+    function updateConstraintTable() {
+        const table = document.getElementById("constaint_table-list")
+
+        if (!global_state["constraints"] || global_state["constraints"].length === 0) return
+
+        const header = `<thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">No. of Facts</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                  </thead><span class="d-none">`
+
+
+        let rowsMap = []
+        for (let i = 0; i < global_state["constraints"].length; i++) {
+            if (i === 0) rowsMap.push(header)
+            rowsMap.push(`</span><tbody>
+                    <tr>
+                        <td>${global_state["constraints"][i]["name"]}</td>
+                        <td>${global_state["constraints"][i]["facts"].length}</td>
+                        <td>${global_state["constraints"][i]["action"]}</td>
+                    </tr>
+                </tbody><span class="d-none">`)
+        }
+
+        table.innerHTML = rowsMap
+    }
+
+
+    function addData(btn) {
+        const prop_name = btn.id.split("-")[0]
+        console.log(prop_name)
+        const new_value = document.getElementById(prop_name).value
+        if (!new_value) return
+
+        if (!global_state[prop_name]) global_state[prop_name] = []
+        document.getElementById(prop_name).value = ""
+
+        if (!global_state[prop_name].includes(new_value)) global_state[prop_name].push(new_value)
+
+        updateListUI(prop_name)
+        if (prop_name === "position_value") updatePositionOptionsUI()
+    }
+
+    function deleteRow(btn, inputId) {
+        const valueToDelete = btn.parentNode.getElementsByTagName("p")[0].innerHTML
+        {#var row = btn.parentNode;#}
+        {#row.parentNode.removeChild(row);#}
+        global_state[inputId.id] = global_state[inputId.id].filter(i => i !== valueToDelete)
+        updateListUI(inputId.id)
+        updatePositionOptionsUI()
+    }
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
